@@ -21,7 +21,7 @@ const App: React.FC = () => {
             cookieSecure={false}
           >
             <BrowserRouter>
-              <Box width="100%" height="100%" p="1rem 2rem 4rem 2rem">
+              <Box width="100%" height="100%" p="1rem 0.5rem 4rem 0.5rem">
                 <Navbar />
                 <Routes>
                   <Route
