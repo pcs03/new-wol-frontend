@@ -1,26 +1,28 @@
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { useMemo } from "react";
-import { themeSettings } from "./theme";
-import { Box, CssBaseline } from "@mui/material";
+import { ColorModeContext, useMode } from "./theme";
+import { CssBaseline, ThemeProvider, Box } from "@mui/material";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "@/scenes/Navbar/Navbar";
+import Home from "./scenes/Home/Home";
 
 const App: React.FC = () => {
-  const theme = useMemo(() => createTheme(themeSettings), []);
+  const [theme, colorMode] = useMode();
+
   return (
-    <div className="app">
-      <BrowserRouter>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Box width="100%" height="100%" p="1rem 2rem 4rem 2rem">
-            <Navbar />
-            <Routes>
-              <Route path="/" element={<div>Placeholder</div>} />
-            </Routes>
-          </Box>
-        </ThemeProvider>
-      </BrowserRouter>
-    </div>
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <div className="app">
+          <BrowserRouter>
+            <Box width="100%" height="100%" p="1rem 2rem 4rem 2rem">
+              <Navbar />
+              <Routes>
+                <Route path="/" element={<Home />} />
+              </Routes>
+            </Box>
+          </BrowserRouter>
+        </div>
+      </ThemeProvider>
+    </ColorModeContext.Provider>
   );
 };
 
