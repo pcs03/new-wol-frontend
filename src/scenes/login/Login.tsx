@@ -1,6 +1,5 @@
-import "./Login.scss";
 import React from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useSignIn } from "react-auth-kit";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Typography, useTheme } from "@mui/material";
@@ -23,20 +22,12 @@ const Login: React.FC = () => {
   const signIn = useSignIn();
   const navigate = useNavigate();
 
-  const { handleSubmit, control } = useForm<LoginFormValues>({
+  const { handleSubmit, control, setError } = useForm<LoginFormValues>({
     defaultValues: defaultValues,
   });
 
-  const onSubmit: SubmitHandler<LoginFormValues> = (data: LoginFormValues) => {
-    const payload = {
-      username: data.username,
-      password: data.password,
-    };
-
-    login(payload);
-  };
-
   async function login(payload: { username: string; password: string }) {
+    console.log(payload);
     const response = await fetch(
       `http://${import.meta.env.VITE_API_HOST}/login`,
       {
@@ -63,12 +54,14 @@ const Login: React.FC = () => {
       navigate("/");
     } else {
       console.log("Error login in");
+      setError("username", { type: "custom", message: "Incorrect" });
+      setError("password", { type: "custom", message: "Incorrect" });
     }
   }
 
   return (
-    <Box>
-      <Typography variant="h3" color={colors.greenAccent[500]} m="0.5rem">
+    <Box maxWidth="500px" margin="auto">
+      <Typography variant="h3" color={colors.greenAccent[500]} m="0.5rem 0">
         Login
       </Typography>
 
@@ -76,38 +69,14 @@ const Login: React.FC = () => {
       <FormInputText name="password" control={control} label="Password" />
 
       <Button
-        onClick={() => handleSubmit(onSubmit)}
+        onClick={handleSubmit((data: LoginFormValues) => login(data))}
         variant="contained"
         color="secondary"
-        sx={{ m: "0.5rem 0.5rem" }}
+        sx={{ m: "0.5rem 0" }}
       >
-        Reset
+        Login
       </Button>
     </Box>
-    // <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
-    //   <div className="login-form-fields">
-    //     <div className="device-input">
-    //       <input
-    //         {...register("username", { required: true })}
-    //         placeholder="Username"
-    //       />
-    //       <p>{errors.username && <span>Username is required</span>}</p>
-    //     </div>
-    //     <div className="device-input">
-    //       <input
-    //         {...register("password", { required: true })}
-    //         placeholder="Password"
-    //       />
-    //       <p>{errors.password && <span>Password is required</span>}</p>
-    //     </div>
-    //   </div>
-
-    //   <div className="form-submit-container">
-    //     <button type="submit" className="form-submit">
-    //       Submit
-    //     </button>
-    //   </div>
-    // </form>
   );
 };
 
