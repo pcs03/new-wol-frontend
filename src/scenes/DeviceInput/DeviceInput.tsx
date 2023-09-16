@@ -120,55 +120,6 @@ const DeviceInput: React.FC<DeviceInputProps> = ({ mode, id, formFields }) => {
         Reset
       </Button>
     </Box>
-    // <form
-    //   className="device-form"
-    //   onSubmit={
-    //     mode === "add"
-    //       ? handleSubmit((data: DeviceInputFields) => addDevice(data))
-    //       : handleSubmit((data: DeviceInputFields) => updateDevice(data))
-    //   }
-    // >
-    //   <div className="form-fields">
-    //     <div className="device-input">
-    //       <input
-    //         {...register("devicename")}
-    //         placeholder="Device Name"
-    //         defaultValue={formFields && formFields.devicename}
-    //       />
-    //       <p>{errors.devicename?.message}</p>
-    //     </div>
-    //     <div className="device-input">
-    //       <input
-    //         {...register("username")}
-    //         placeholder="Username"
-    //         defaultValue={formFields && formFields.username}
-    //       />
-    //       <p>{errors.username?.message}</p>
-    //     </div>
-    //     <div className="device-input">
-    //       <input
-    //         {...register("mac")}
-    //         placeholder="MAC Address"
-    //         defaultValue={formFields && formFields.ip}
-    //       />
-    //       <p>{errors.mac?.message}</p>
-    //     </div>
-    //     <div className="device-input">
-    //       <input
-    //         {...register("ip")}
-    //         placeholder="IP Address"
-    //         defaultValue={formFields && formFields.mac}
-    //       />
-    //       <p>{errors.ip?.message}</p>
-    //     </div>
-    //   </div>
-
-    //   <div className="form-submit-container">
-    //     <button type="submit" className="form-submit">
-    //       {mode === "add" ? "Add Device" : "Update Device"}
-    //     </button>
-    //   </div>
-    // </form>
   );
 };
 
