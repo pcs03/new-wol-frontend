@@ -22,6 +22,21 @@ const defaultValues = {
   mac: "",
 };
 
+const dropdownOptions: option[] = [
+  {
+    label: "Computer",
+    value: "1",
+  },
+  {
+    label: "Server",
+    value: "2",
+  },
+  {
+    label: "Singleboard",
+    value: "3",
+  },
+];
+
 const DeviceInput: React.FC<DeviceInputProps> = ({ mode, id, formFields }) => {
   const { devices, setDevices } = useContext(DevicesContext);
   const theme = useTheme();
@@ -94,7 +109,12 @@ const DeviceInput: React.FC<DeviceInputProps> = ({ mode, id, formFields }) => {
         {mode == "add" ? "Add a New Device" : "Update Device"}
       </Typography>
 
-      <FormInputDropdown name="devicetype" control={control} label="Type" />
+      <FormInputDropdown
+        name="devicetype"
+        control={control}
+        label="Type"
+        options={dropdownOptions}
+      />
 
       <FormInputText name="devicename" control={control} label="Device Name" />
       <FormInputText name="username" control={control} label="Username" />

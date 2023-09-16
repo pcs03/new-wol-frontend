@@ -14,3 +14,8 @@ declare type DeviceInputFields = {
   ip: string;
   mac: string;
 };
+
+declare type option = {
+  label: string;
+  value: string;
+};

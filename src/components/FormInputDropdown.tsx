@@ -16,32 +16,14 @@ interface FormInputProps {
   label: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setValue?: any;
+  options: option[];
 }
-
-type option = {
-  label: string;
-  value: string;
-};
-
-const options: option[] = [
-  {
-    label: "Computer",
-    value: "1",
-  },
-  {
-    label: "Server",
-    value: "2",
-  },
-  {
-    label: "Singleboard",
-    value: "3",
-  },
-];
 
 const FormInputDropdown: React.FC<FormInputProps> = ({
   name,
   control,
   label,
+  options,
 }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
