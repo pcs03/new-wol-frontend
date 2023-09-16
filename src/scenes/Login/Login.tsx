@@ -66,7 +66,12 @@ const Login: React.FC = () => {
       </Typography>
 
       <FormInputText name="username" control={control} label="Username" />
-      <FormInputText name="password" control={control} label="Password" />
+      <FormInputText
+        name="password"
+        control={control}
+        label="Password"
+        password={true}
+      />
 
       <Button
         onClick={handleSubmit((data: LoginFormValues) => login(data))}

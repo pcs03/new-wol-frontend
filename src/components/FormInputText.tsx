@@ -8,8 +8,10 @@ interface FormInputProps {
   label: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setValue?: any;
+  password?: boolean;
 }
-const FormInputText = ({ name, control, label }: FormInputProps) => {
+
+const FormInputText = ({ name, control, label, password }: FormInputProps) => {
   return (
     <Controller
       name={name}
@@ -26,6 +28,7 @@ const FormInputText = ({ name, control, label }: FormInputProps) => {
           variant="outlined"
           color="secondary"
           sx={{ m: "0.5rem 0" }}
+          type={password ? "password" : "text"}
         />
       )}
     />
