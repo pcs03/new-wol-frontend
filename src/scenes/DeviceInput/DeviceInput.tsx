@@ -7,6 +7,7 @@ import FormInputDropdown from "@/components/FormInputDropdown";
 import { tokens } from "@/theme";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { object, string } from "yup";
+import FlexBetween from "@/components/FlexBetween";
 
 interface DeviceInputProps {
   mode: "add" | "update";
@@ -104,8 +105,8 @@ const DeviceInput: React.FC<DeviceInputProps> = ({ mode, id, formFields }) => {
   }
 
   return (
-    <Box>
-      <Typography variant="h3" color={colors.greenAccent[500]} m="0.5rem 0">
+    <Box textAlign="center">
+      <Typography variant="h3" color={colors.greenAccent[500]}>
         {mode == "add" ? "Add a New Device" : "Update Device"}
       </Typography>
 
@@ -121,27 +122,29 @@ const DeviceInput: React.FC<DeviceInputProps> = ({ mode, id, formFields }) => {
       <FormInputText name="ip" control={control} label="IP Address" />
       <FormInputText name="mac" control={control} label="MAC Address" />
 
-      <Button
-        type="submit"
-        onClick={
-          mode == "add"
-            ? handleSubmit((data: DeviceInputFields) => addDevice(data))
-            : handleSubmit((data: DeviceInputFields) => updateDevice(data))
-        }
-        variant="contained"
-        color="secondary"
-        sx={{ m: "0.5rem 0" }}
-      >
-        {mode === "add" ? "Add Device" : "Update Device"}
-      </Button>
-      <Button
-        onClick={() => reset()}
-        variant="contained"
-        color="secondary"
-        sx={{ m: "0.5rem 0.5rem" }}
-      >
-        Reset
-      </Button>
+      <FlexBetween m="0 5rem">
+        <Button
+          type="submit"
+          onClick={
+            mode == "add"
+              ? handleSubmit((data: DeviceInputFields) => addDevice(data))
+              : handleSubmit((data: DeviceInputFields) => updateDevice(data))
+          }
+          variant="contained"
+          color="secondary"
+          sx={{ m: "0.5rem 0", width: "6rem" }}
+        >
+          {mode === "add" ? "Add" : "Update"}
+        </Button>
+        <Button
+          onClick={() => reset()}
+          variant="contained"
+          color="secondary"
+          sx={{ m: "0.5rem 0.5rem", width: "6rem" }}
+        >
+          Reset
+        </Button>
+      </FlexBetween>
     </Box>
   );
 };

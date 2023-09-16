@@ -170,17 +170,17 @@ const Device: React.FC<DeviceProps> = ({ device, onUpdate }) => {
       {device && (
         <Box>
           <Typography
-            variant="h3"
+            variant="h4"
             fontWeight="bold"
             color={colors.greenAccent[500]}
             sx={{ m: "0.2rem 0" }}
           >
             {device.devicename}
           </Typography>
-          <Typography variant="h4" sx={{ m: "0.1rem 0" }}>
+          <Typography variant="h5" sx={{ m: "0.1rem 0" }}>
             {device.username + "@" + device.ip}
           </Typography>
-          <Typography variant="h4" sx={{ m: "0.1rem 0" }}>
+          <Typography variant="h5" sx={{ m: "0.1rem 0" }}>
             {formatMac(device.mac)}
           </Typography>
         </Box>
@@ -193,11 +193,11 @@ const Device: React.FC<DeviceProps> = ({ device, onUpdate }) => {
           <CircularProgress
             variant="indeterminate"
             color="secondary"
-            sx={{ fontSize: 80 }}
+            sx={{ fontSize: 50 }}
           />
         ) : (
           <PowerSettingsNewIcon
-            sx={{ fontSize: 80 }}
+            sx={{ fontSize: 50 }}
             color={deviceStatus ? "success" : "error"}
           />
         )}
