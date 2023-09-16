@@ -1,4 +1,5 @@
 declare type Device = {
+  devicetype: string;
   devicename: string;
   username: string;
   ip: string;
@@ -7,6 +8,7 @@ declare type Device = {
 };
 
 declare type DeviceInputFields = {
+  devicetype: string;
   devicename: string;
   username: string;
   ip: string;

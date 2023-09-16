@@ -1,8 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import StorageIcon from "@mui/icons-material/Storage";
+import ComputerIcon from "@mui/icons-material/Computer";
+import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoard";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  IconButton,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { DevicesContext } from "../../context/DeviceProvider";
 import SensorsIcon from "@mui/icons-material/Sensors";
 import UpdateIcon from "@mui/icons-material/Update";
@@ -27,15 +35,14 @@ const Device: React.FC<DeviceProps> = ({ device, onUpdate }) => {
   const [deviceStatus, setDeviceStatus] = useState<boolean>();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  // const [shutdownLoading, setShutdownLoading] = useState<boolean>(false);
-  // const [wakeLoading, setWakeLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     pingDevice();
   });
 
   async function sendWol() {
-    // setWakeLoading(true);
+    setLoading(true);
     const response = await fetch(
       `http://${import.meta.env.VITE_API_HOST}/wol/${device.id}`,
       {
@@ -53,14 +60,14 @@ const Device: React.FC<DeviceProps> = ({ device, onUpdate }) => {
         const status = await pingDevice();
 
         if (status || counter >= 30) {
-          // setWakeLoading(false);
+          setLoading(false);
           clearInterval(intervalId);
         }
 
         counter++;
       }, 2000);
     } else {
-      // setWakeLoading(false);
+      setLoading(false);
     }
   }
 
@@ -109,7 +116,7 @@ const Device: React.FC<DeviceProps> = ({ device, onUpdate }) => {
   }
 
   async function sendShutdown() {
-    // setShutdownLoading(true);
+    setLoading(true);
     const confirm = window.confirm(
       "Are you sure you want to shutdown this device?"
     );
@@ -123,8 +130,8 @@ const Device: React.FC<DeviceProps> = ({ device, onUpdate }) => {
           },
         }
       );
-
       const body = await response.json();
+      console.log(body);
 
       if (new RegExp("closed by remote host").test(body["status"])) {
         console.log("turning off");
@@ -134,14 +141,14 @@ const Device: React.FC<DeviceProps> = ({ device, onUpdate }) => {
           const status = await pingDevice();
 
           if (!status || counter >= 60) {
-            // setShutdownLoading(false);
+            setLoading(false);
             clearInterval(intervalId);
           }
 
           counter++;
         }, 2000);
       } else {
-        // setShutdownLoading(false);
+        setLoading(false);
       }
     }
   }
@@ -153,7 +160,13 @@ const Device: React.FC<DeviceProps> = ({ device, onUpdate }) => {
       m="0.5rem 0"
       p="0px 5px"
     >
-      <StorageIcon sx={{ fontSize: "40px" }} />
+      {device.devicetype == "3" ? (
+        <DeveloperBoardIcon sx={{ fontSize: "30px" }} />
+      ) : device.devicetype == "2" ? (
+        <StorageIcon sx={{ fontSize: "30px" }} />
+      ) : (
+        <ComputerIcon sx={{ fontSize: "30px" }} />
+      )}
       {device && (
         <Box>
           <Typography
@@ -172,12 +185,24 @@ const Device: React.FC<DeviceProps> = ({ device, onUpdate }) => {
           </Typography>
         </Box>
       )}
-      <IconButton onClick={deviceStatus ? sendShutdown : sendWol}>
-        <PowerSettingsNewIcon
-          sx={{ fontSize: 80 }}
-          color={deviceStatus ? "success" : "error"}
-        />
+      <IconButton
+        onClick={deviceStatus ? sendShutdown : sendWol}
+        disabled={loading}
+      >
+        {loading ? (
+          <CircularProgress
+            variant="indeterminate"
+            color="secondary"
+            sx={{ fontSize: 80 }}
+          />
+        ) : (
+          <PowerSettingsNewIcon
+            sx={{ fontSize: 80 }}
+            color={deviceStatus ? "success" : "error"}
+          />
+        )}
       </IconButton>
+
       <Box display="flex" flexDirection="column">
         <IconButton onClick={rmDevice}>
           <DeleteIcon />
@@ -185,6 +210,7 @@ const Device: React.FC<DeviceProps> = ({ device, onUpdate }) => {
         <IconButton
           onClick={() =>
             onUpdate(device.id, {
+              devicetype: device.devicetype,
               username: device.username,
               devicename: device.devicename,
               ip: device.ip,

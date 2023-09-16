@@ -2,7 +2,8 @@ import { useContext } from "react";
 import { DevicesContext } from "../../context/DeviceProvider";
 import { useForm } from "react-hook-form";
 import { Box, Button, Typography, useTheme } from "@mui/material";
-import { FormInputText } from "@/components/FormInputText";
+import FormInputText from "@/components/FormInputText";
+import FormInputDropdown from "@/components/FormInputDropdown";
 import { tokens } from "@/theme";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { object, string } from "yup";
@@ -14,6 +15,7 @@ interface DeviceInputProps {
 }
 
 const defaultValues = {
+  devicetype: "",
   devicename: "",
   username: "",
   ip: "",
@@ -30,6 +32,7 @@ const DeviceInput: React.FC<DeviceInputProps> = ({ mode, id, formFields }) => {
   const macPattern = /^([0-9A-Fa-f]{12}|([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2})$/;
 
   const userSchema = object({
+    devicetype: string().required("Required"),
     devicename: string().required("Required").max(15, "Too long"),
     username: string()
       .required("Required")
@@ -90,6 +93,8 @@ const DeviceInput: React.FC<DeviceInputProps> = ({ mode, id, formFields }) => {
       <Typography variant="h3" color={colors.greenAccent[500]} m="0.5rem 0">
         {mode == "add" ? "Add a New Device" : "Update Device"}
       </Typography>
+
+      <FormInputDropdown name="devicetype" control={control} label="Type" />
 
       <FormInputText name="devicename" control={control} label="Device Name" />
       <FormInputText name="username" control={control} label="Username" />

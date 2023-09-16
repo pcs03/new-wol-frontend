@@ -1,7 +1,5 @@
 import { Control, Controller } from "react-hook-form";
 import TextField from "@mui/material/TextField";
-import { useTheme } from "@mui/material";
-import { tokens } from "@/theme";
 
 interface FormInputProps {
   name: string;
@@ -11,10 +9,7 @@ interface FormInputProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setValue?: any;
 }
-export const FormInputText = ({ name, control, label }: FormInputProps) => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
-
+const FormInputText = ({ name, control, label }: FormInputProps) => {
   return (
     <Controller
       name={name}
@@ -29,9 +24,12 @@ export const FormInputText = ({ name, control, label }: FormInputProps) => {
           fullWidth
           label={label}
           variant="outlined"
-          sx={{ color: colors.gray[500], m: "0.5rem 0" }}
+          color="secondary"
+          sx={{ m: "0.5rem 0" }}
         />
       )}
     />
   );
 };
+
+export default FormInputText;
