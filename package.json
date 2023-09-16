@@ -17,6 +17,7 @@
     "@mui/lab": "^5.0.0-alpha.144",
     "@mui/material": "^5.14.7",
     "react": "^18.2.0",
+    "react-auth-kit": "^2.12.6",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.46.1",
     "react-router-dom": "^6.15.0",
