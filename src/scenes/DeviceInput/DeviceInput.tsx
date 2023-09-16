@@ -106,45 +106,52 @@ const DeviceInput: React.FC<DeviceInputProps> = ({ mode, id, formFields }) => {
 
   return (
     <Box textAlign="center">
-      <Typography variant="h3" color={colors.greenAccent[500]}>
-        {mode == "add" ? "Add a New Device" : "Update Device"}
-      </Typography>
+      <form>
+        <Typography variant="h3" color={colors.greenAccent[500]}>
+          {mode == "add" ? "Add a New Device" : "Update Device"}
+        </Typography>
 
-      <FormInputDropdown
-        name="devicetype"
-        control={control}
-        label="Type"
-        options={dropdownOptions}
-      />
+        <FormInputDropdown
+          name="devicetype"
+          control={control}
+          label="Type"
+          options={dropdownOptions}
+        />
 
-      <FormInputText name="devicename" control={control} label="Device Name" />
-      <FormInputText name="username" control={control} label="Username" />
-      <FormInputText name="ip" control={control} label="IP Address" />
-      <FormInputText name="mac" control={control} label="MAC Address" />
+        <FormInputText
+          name="devicename"
+          control={control}
+          label="Device Name"
+        />
+        <FormInputText name="username" control={control} label="Username" />
+        <FormInputText name="ip" control={control} label="IP Address" />
+        <FormInputText name="mac" control={control} label="MAC Address" />
 
-      <FlexBetween m="0 5rem">
-        <Button
-          type="submit"
-          onClick={
-            mode == "add"
-              ? handleSubmit((data: DeviceInputFields) => addDevice(data))
-              : handleSubmit((data: DeviceInputFields) => updateDevice(data))
-          }
-          variant="contained"
-          color="secondary"
-          sx={{ m: "0.5rem 0", width: "6rem" }}
-        >
-          {mode === "add" ? "Add" : "Update"}
-        </Button>
-        <Button
-          onClick={() => reset()}
-          variant="contained"
-          color="secondary"
-          sx={{ m: "0.5rem 0.5rem", width: "6rem" }}
-        >
-          Reset
-        </Button>
-      </FlexBetween>
+        <FlexBetween m="0 5rem">
+          <Button
+            type="submit"
+            onClick={
+              mode == "add"
+                ? handleSubmit((data: DeviceInputFields) => addDevice(data))
+                : handleSubmit((data: DeviceInputFields) => updateDevice(data))
+            }
+            variant="contained"
+            color="secondary"
+            sx={{ m: "0.5rem 0", width: "6rem" }}
+          >
+            {mode === "add" ? "Add" : "Update"}
+          </Button>
+          <Button
+            onClick={() => reset()}
+            variant="contained"
+            color="secondary"
+            sx={{ m: "0.5rem 0.5rem", width: "6rem" }}
+            type="submit"
+          >
+            Reset
+          </Button>
+        </FlexBetween>
+      </form>
     </Box>
   );
 };

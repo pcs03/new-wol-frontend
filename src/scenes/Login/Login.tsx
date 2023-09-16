@@ -61,26 +61,29 @@ const Login: React.FC = () => {
 
   return (
     <Box maxWidth="500px" margin="auto">
-      <Typography variant="h3" color={colors.greenAccent[500]} m="0.5rem 0">
-        Login
-      </Typography>
+      <form>
+        <Typography variant="h3" color={colors.greenAccent[500]} m="0.5rem 0">
+          Login
+        </Typography>
 
-      <FormInputText name="username" control={control} label="Username" />
-      <FormInputText
-        name="password"
-        control={control}
-        label="Password"
-        password={true}
-      />
+        <FormInputText name="username" control={control} label="Username" />
+        <FormInputText
+          name="password"
+          control={control}
+          label="Password"
+          password={true}
+        />
 
-      <Button
-        onClick={handleSubmit((data: LoginFormValues) => login(data))}
-        variant="contained"
-        color="secondary"
-        sx={{ m: "0.5rem 0" }}
-      >
-        Login
-      </Button>
+        <Button
+          onClick={handleSubmit((data: LoginFormValues) => login(data))}
+          variant="contained"
+          color="secondary"
+          sx={{ m: "0.5rem 0" }}
+          type="submit"
+        >
+          Login
+        </Button>
+      </form>
     </Box>
   );
 };
