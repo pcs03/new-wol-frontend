@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "@/scenes/Navbar/Navbar";
 import Home from "./scenes/Home/Home";
 import { AuthProvider, RequireAuth } from "react-auth-kit";
-import Login from "./scenes/login/Login";
+import Login from "./scenes/Login/Login";
 
 const App: React.FC = () => {
   const [theme, colorMode] = useMode();
