@@ -34,7 +34,7 @@ const DeviceList: React.FC = () => {
   };
 
   return (
-    <Box maxWidth="40%" margin="auto">
+    <Box maxWidth="500px" margin="auto">
       {devices.map((device) => (
         <Device device={device} key={device.id} onUpdate={handleUpdate} />
       ))}
