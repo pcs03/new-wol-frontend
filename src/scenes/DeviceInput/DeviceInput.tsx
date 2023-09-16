@@ -1,8 +1,6 @@
 import { useContext } from "react";
 import { DevicesContext } from "../../context/DeviceProvider";
-// import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-// import { object, string } from "yup";
 import { Box, Button, Typography, useTheme } from "@mui/material";
 import { FormInputText } from "@/components/FormInputText";
 import { tokens } from "@/theme";
