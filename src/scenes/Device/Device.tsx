@@ -42,7 +42,6 @@ const Device: React.FC<DeviceProps> = ({ device, onUpdate }) => {
   });
 
   async function sendWol() {
-    setLoading(true);
     const response = await fetch(
       `http://${import.meta.env.VITE_API_HOST}/wol/${device.id}`,
       {
@@ -52,9 +51,9 @@ const Device: React.FC<DeviceProps> = ({ device, onUpdate }) => {
         },
       }
     );
-    const body = await response.json();
 
-    if (body.message === "Magic packet sent") {
+    if (response.status != 400) {
+      setLoading(true);
       let counter = 0;
       const intervalId = window.setInterval(async () => {
         const status = await pingDevice();
@@ -66,8 +65,40 @@ const Device: React.FC<DeviceProps> = ({ device, onUpdate }) => {
 
         counter++;
       }, 2000);
-    } else {
-      setLoading(false);
+    }
+  }
+
+  async function sendShutdown() {
+    const confirm = window.confirm(
+      "Are you sure you want to shutdown this device?"
+    );
+    if (confirm) {
+      const response = await fetch(
+        `http://${import.meta.env.VITE_API_HOST}/shutdown/${device.id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status != 400) {
+        console.log("turning off");
+        setLoading(true);
+
+        let counter = 0;
+        const intervalId = window.setInterval(async () => {
+          const status = await pingDevice();
+
+          if (!status || counter >= 60) {
+            setLoading(false);
+            clearInterval(intervalId);
+          }
+
+          counter++;
+        }, 2000);
+      }
     }
   }
 
@@ -113,44 +144,6 @@ const Device: React.FC<DeviceProps> = ({ device, onUpdate }) => {
     setDeviceStatus(body["status"]);
 
     return body["status"];
-  }
-
-  async function sendShutdown() {
-    setLoading(true);
-    const confirm = window.confirm(
-      "Are you sure you want to shutdown this device?"
-    );
-    if (confirm) {
-      const response = await fetch(
-        `http://${import.meta.env.VITE_API_HOST}/shutdown/${device.id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const body = await response.json();
-      console.log(body);
-
-      if (new RegExp("closed by remote host").test(body["status"])) {
-        console.log("turning off");
-
-        let counter = 0;
-        const intervalId = window.setInterval(async () => {
-          const status = await pingDevice();
-
-          if (!status || counter >= 60) {
-            setLoading(false);
-            clearInterval(intervalId);
-          }
-
-          counter++;
-        }, 2000);
-      } else {
-        setLoading(false);
-      }
-    }
   }
 
   return (
