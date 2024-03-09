@@ -1,7 +1,7 @@
 declare type Device = {
   devicetype: string;
   devicename: string;
-  username: string;
+  deviceuser: string;
   ip: string;
   mac: string;
   id: number;
@@ -10,7 +10,7 @@ declare type Device = {
 declare type DeviceInputFields = {
   devicetype: string;
   devicename: string;
-  username: string;
+  deviceuser: string;
   ip: string;
   mac: string;
 };

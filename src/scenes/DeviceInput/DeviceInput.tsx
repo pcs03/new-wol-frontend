@@ -50,7 +50,7 @@ const DeviceInput: React.FC<DeviceInputProps> = ({ mode, id, formFields }) => {
   const userSchema = object({
     devicetype: string().required("Required"),
     devicename: string().required("Required").max(15, "Too long"),
-    username: string()
+    deviceuser: string()
       .required("Required")
       .matches(usernamePattern, "Not a valid username"),
     mac: string()
@@ -123,7 +123,7 @@ const DeviceInput: React.FC<DeviceInputProps> = ({ mode, id, formFields }) => {
           control={control}
           label="Device Name"
         />
-        <FormInputText name="username" control={control} label="Username" />
+        <FormInputText name="deviceuser" control={control} label="Device User" />
         <FormInputText name="ip" control={control} label="IP Address" />
         <FormInputText name="mac" control={control} label="MAC Address" />
 

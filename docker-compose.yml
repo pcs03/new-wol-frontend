@@ -1,7 +1,0 @@
-version: '3'
-services:
-  wol_frontend:
-    image: wolfrontend:latest
-    container_name: wol_frontend
-    ports:
-      - 3555:80/tcp

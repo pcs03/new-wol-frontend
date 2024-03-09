@@ -171,7 +171,7 @@ const Device: React.FC<DeviceProps> = ({ device, onUpdate }) => {
             {device.devicename}
           </Typography>
           <Typography variant="h5" sx={{ m: "0.1rem 0" }}>
-            {device.username + "@" + device.ip}
+            {device.deviceuser + "@" + device.ip}
           </Typography>
           <Typography variant="h5" sx={{ m: "0.1rem 0" }}>
             {formatMac(device.mac)}
@@ -204,7 +204,7 @@ const Device: React.FC<DeviceProps> = ({ device, onUpdate }) => {
           onClick={() =>
             onUpdate(device.id, {
               devicetype: device.devicetype,
-              username: device.username,
+              deviceuser: device.deviceuser,
               devicename: device.devicename,
               ip: device.ip,
               mac: device.mac,
